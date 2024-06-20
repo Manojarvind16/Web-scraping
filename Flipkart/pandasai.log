@@ -1,0 +1,338 @@
+2024-06-17 18:09:31 [INFO] Question: Perform sentiment analysis on the 'Review' column. Classify each review as Positive, Neutral, or Negative.
+2024-06-17 18:09:35 [INFO] Running PandasAI with bamboo_llm LLM...
+2024-06-17 18:09:35 [INFO] Prompt ID: af772032-75d6-45cd-ae6f-0b2bf21858b6
+2024-06-17 18:09:35 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-06-17 18:09:35 [INFO] Executing Step 0: ValidatePipelineInput
+2024-06-17 18:09:35 [INFO] Executing Step 1: CacheLookup
+2024-06-17 18:09:35 [INFO] Executing Step 2: PromptGeneration
+2024-06-17 18:09:37 [INFO] Querying without using training data.
+2024-06-17 18:09:37 [INFO] Querying without using training docs.
+2024-06-17 18:09:38 [INFO] Executing Step 3: CodeGenerator
+2024-06-17 18:09:38 [ERROR] Pipeline failed on step 3: Unauthorized
+2024-06-17 18:20:35 [INFO] Question: Perform sentiment analysis on the 'Review' column. Classify each review as Positive, Neutral, or Negative.
+2024-06-17 18:20:39 [INFO] Running PandasAI with bamboo_llm LLM...
+2024-06-17 18:20:39 [INFO] Prompt ID: 6d13bb7b-065d-43ba-ba68-7bb95ac1f82d
+2024-06-17 18:20:39 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-06-17 18:20:39 [INFO] Executing Step 0: ValidatePipelineInput
+2024-06-17 18:20:39 [INFO] Executing Step 1: CacheLookup
+2024-06-17 18:20:40 [INFO] Executing Step 2: PromptGeneration
+2024-06-17 18:20:42 [INFO] Using prompt: <dataframe>
+dfs[0]:2056x3
+Product,Rating,Review
+realme 12 Pro+ 5G,5,"Overall nice ,camera quality is very good, only battery problem"
+OnePlus 11R 5G,3,"Battery performance is very poor, it's draining too fast, overall good phone but only problem is battery draining"
+Motorola Edge 50 Pro 5G,4,Good work
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+
+
+
+
+### QUERY
+ Perform sentiment analysis on the 'Review' column. Classify each review as Positive, Neutral, or Negative.
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-06-17 18:20:42 [INFO] Executing Step 3: CodeGenerator
+2024-06-17 18:20:46 [INFO] Prompt used:
+            None
+            
+2024-06-17 18:20:46 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+from textblob import TextBlob
+
+# Perform sentiment analysis on the 'Review' column
+sentiment = []
+for df in dfs:
+    for index, row in df.iterrows():
+        review = row['Review']
+        analysis = TextBlob(review)
+        if analysis.sentiment.polarity > 0:
+            sentiment.append('Positive')
+        elif analysis.sentiment.polarity == 0:
+            sentiment.append('Neutral')
+        else:
+            sentiment.append('Negative')
+    df['Sentiment'] = sentiment
+
+result = {"type": "dataframe", "value": dfs}
+            ```
+            
+2024-06-17 18:20:46 [INFO] Executing Step 4: CachePopulation
+2024-06-17 18:20:46 [INFO] Executing Step 5: CodeCleaning
+2024-06-17 18:20:46 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-06-17 18:20:46 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-06-17 18:20:46 [INFO] Using prompt: <dataframe>
+dfs[0]:2056x3
+Product,Rating,Review
+realme 12 Pro+ 5G,5,"Overall nice ,camera quality is very good, only battery problem"
+OnePlus 11R 5G,3,"Battery performance is very poor, it's draining too fast, overall good phone but only problem is battery draining"
+Motorola Edge 50 Pro 5G,4,Good work
+</dataframe>
+
+
+The user asked the following question:
+### QUERY
+ Perform sentiment analysis on the 'Review' column. Classify each review as Positive, Neutral, or Negative.
+
+You generated this python code:
+# TODO: import the required dependencies
+import pandas as pd
+from textblob import TextBlob
+
+# Perform sentiment analysis on the 'Review' column
+sentiment = []
+for df in dfs:
+    for index, row in df.iterrows():
+        review = row['Review']
+        analysis = TextBlob(review)
+        if analysis.sentiment.polarity > 0:
+            sentiment.append('Positive')
+        elif analysis.sentiment.polarity == 0:
+            sentiment.append('Neutral')
+        else:
+            sentiment.append('Negative')
+    df['Sentiment'] = sentiment
+
+result = {"type": "dataframe", "value": dfs}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 95, in execute
+    code_to_run = self.get_code_to_run(input, code_context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 148, in get_code_to_run
+    code_to_run = self._clean_code(code, context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 459, in _clean_code
+    self._check_imports(node)
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 555, in _check_imports
+    raise BadImportError(library)
+pandasai.exceptions.BadImportError: Generated code includes import of textblob which is not in whitelist.
+
+
+Fix the python code above and return the new python code:
+2024-06-17 18:20:47 [INFO] Executing Step 1: CodeGenerator
+2024-06-17 18:20:50 [INFO] Prompt used:
+            None
+            
+2024-06-17 18:20:50 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+from textblob import TextBlob
+
+# Perform sentiment analysis on the 'Review' column
+for df in dfs:
+    sentiment = []
+    for index, row in df.iterrows():
+        review = row['Review']
+        analysis = TextBlob(review)
+        if analysis.sentiment.polarity > 0:
+            sentiment.append('Positive')
+        elif analysis.sentiment.polarity == 0:
+            sentiment.append('Neutral')
+        else:
+            sentiment.append('Negative')
+    df['Sentiment'] = sentiment
+
+result = {"type": "dataframe", "value": dfs}
+            ```
+            
+2024-06-17 18:20:50 [INFO] Executing Step 2: CodeCleaning
+2024-06-17 18:20:50 [ERROR] Pipeline failed on step 2: Generated code includes import of textblob which is not in whitelist.
+2024-06-17 18:20:50 [ERROR] Pipeline failed on step 5: Generated code includes import of textblob which is not in whitelist.
+2024-06-19 20:24:04 [INFO] Question: Perform sentiment analysis on the 'Review' column. Classify each review as Positive, Neutral, or Negative.
+2024-06-19 20:24:08 [INFO] Running PandasAI with bamboo_llm LLM...
+2024-06-19 20:24:08 [INFO] Prompt ID: 4e7d0cf0-2190-434a-abcd-3f819b284d88
+2024-06-19 20:24:08 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-06-19 20:24:08 [INFO] Executing Step 0: ValidatePipelineInput
+2024-06-19 20:24:08 [INFO] Executing Step 1: CacheLookup
+2024-06-19 20:24:08 [INFO] Using cached response
+2024-06-19 20:24:08 [INFO] Executing Step 2: PromptGeneration
+2024-06-19 20:24:08 [INFO] Executing Step 2: Skipping...
+2024-06-19 20:24:08 [INFO] Executing Step 3: CodeGenerator
+2024-06-19 20:24:08 [INFO] Executing Step 3: Skipping...
+2024-06-19 20:24:08 [INFO] Executing Step 4: CachePopulation
+2024-06-19 20:24:08 [INFO] Executing Step 4: Skipping...
+2024-06-19 20:24:08 [INFO] Executing Step 5: CodeCleaning
+2024-06-19 20:24:09 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-06-19 20:24:09 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-06-19 20:24:09 [INFO] Executing Step 1: CodeGenerator
+2024-06-19 20:24:52 [ERROR] Request failed: Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 95, in execute
+    code_to_run = self.get_code_to_run(input, code_context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 148, in get_code_to_run
+    code_to_run = self._clean_code(code, context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 459, in _clean_code
+    self._check_imports(node)
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\pipelines\chat\code_cleaning.py", line 555, in _check_imports
+    raise BadImportError(library)
+pandasai.exceptions.BadImportError: Generated code includes import of textblob which is not in whitelist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x000001EAE12CC410>, 'Connection to api.domer.ai timed out. (connect timeout=300)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/llm/chat (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001EAE12CC410>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\helpers\request.py", line 59, in make_request
+    response = requests.request(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\adapters.py", line 688, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/llm/chat (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001EAE12CC410>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+
+2024-06-19 20:24:52 [ERROR] Pipeline failed on step 1: Request failed: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/llm/chat (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001EAE12CC410>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+2024-06-19 20:24:52 [ERROR] Pipeline failed on step 5: Request failed: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/llm/chat (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001EAE12CC410>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+2024-06-19 20:32:43 [INFO] Question: Show me the best mobile for camera quality.
+2024-06-19 20:32:48 [INFO] Running PandasAI with bamboo_llm LLM...
+2024-06-19 20:32:48 [INFO] Prompt ID: bd6521a8-5d8a-48ad-a576-486669744681
+2024-06-19 20:32:48 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-06-19 20:32:48 [INFO] Executing Step 0: ValidatePipelineInput
+2024-06-19 20:32:48 [INFO] Executing Step 1: CacheLookup
+2024-06-19 20:32:49 [INFO] Executing Step 2: PromptGeneration
+2024-06-19 20:33:32 [ERROR] Request failed: Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 793, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 491, in _make_request
+    raise new_e
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 467, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1099, in _validate_conn
+    conn.connect()
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 616, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connection.py", line 207, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x00000195D7167B10>, 'Connection to api.domer.ai timed out. (connect timeout=300)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\connectionpool.py", line 847, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\urllib3\util\retry.py", line 515, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/training-data/qa/relevant-qa?query=%23%23%23+QUERY%0A+Show+me+the+best+mobile+for+camera+quality.&count=1 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000195D7167B10>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\pandasai\helpers\request.py", line 59, in make_request
+    response = requests.request(
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\manoj\OneDrive\Desktop\Flipkart\.venv\Lib\site-packages\requests\adapters.py", line 688, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.domer.ai', port=443): Max retries exceeded with url: /api/training-data/qa/relevant-qa?query=%23%23%23+QUERY%0A+Show+me+the+best+mobile+for+camera+quality.&count=1 (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x00000195D7167B10>, 'Connection to api.domer.ai timed out. (connect timeout=300)'))
+
+2024-06-19 20:33:33 [INFO] Querying without using training data.
+2024-06-19 20:33:34 [INFO] Querying without using training docs.
+2024-06-19 20:33:35 [INFO] Executing Step 3: CodeGenerator
+2024-06-19 20:33:35 [ERROR] Pipeline failed on step 3: Unauthorized
